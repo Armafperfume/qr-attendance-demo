@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #f6f0e4;
+  --cream-deep: #efe6d4;
+  --paper: #fffcf6;
+  --ink: #2a2118;
+  --muted: #7c6a55;
+  --line: #e6dbc8;
+  --accent: #b5552b;
+  --accent-deep: #8c3f1b;
+  --green: #2e7d4f;
+  --green-soft: #e3f1e8;
+  --red: #b3261e;
+  --red-soft: #fbe9e7;
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+}
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  color: var(--ink);
+  background: var(--cream);
+  background-image:
+    radial-gradient(1200px 600px at 50% -200px, #fff8ea 0%, transparent 70%);
+  font-family: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  min-height: 100dvh;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Step transitions */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.step-enter {
+  animation: rise 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60% { transform: translateX(4px); }
+}
+.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes pop {
+  0%   { transform: scale(0.4); opacity: 0; }
+  60%  { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.pop {
+  animation: pop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+.check-path {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: draw 0.5s 0.25s ease-out forwards;
+}
+
+/* Poster printing */
+@media print {
+  body { background: #fff !important; background-image: none !important; }
+  .no-print { display: none !important; }
+  .poster-sheet {
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 210mm !important;
+    height: 297mm !important;
+  }
+}
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+/* Buttons */
+@layer components {
+  .btn-primary {
+    @apply w-full rounded-full bg-ink px-5 py-3.5 text-base font-medium text-paper shadow-card transition hover:bg-accent-deep active:scale-[0.98] disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply w-full rounded-full border border-line bg-paper px-5 py-3.5 text-base font-medium text-ink transition hover:border-accent/50 active:scale-[0.98];
+  }
+}
